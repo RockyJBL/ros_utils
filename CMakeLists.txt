@@ -41,3 +41,9 @@ target_link_libraries(vicon_correction
   ${catkin_LIBRARIES}
   Eigen3::Eigen
 )
+
+add_executable(lala src/lala.cpp)
+target_link_libraries(lala
+  ${catkin_LIBRARIES}
+  Eigen3::Eigen
+)
