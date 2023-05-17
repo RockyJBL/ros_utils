@@ -1,0 +1,1 @@
+int TEST_CONST = 10;

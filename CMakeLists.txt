@@ -10,19 +10,31 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
+  roslaunch
+  geometry_msgs
+  mavros_msgs
+  message_generation
   tf
 )
 
 find_package(Eigen3 REQUIRED)
 
+add_message_files(
+  FILES
+  test.msg
+)
+
+generate_messages(DEPENDENCIES geometry_msgs ros_utils)
+
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES qr_mpc
-#  CATKIN_DEPENDS roscpp
+ INCLUDE_DIRS include
+ LIBRARIES ros_utils
+ CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
 
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -42,8 +54,20 @@ target_link_libraries(vicon_correction
   Eigen3::Eigen
 )
 
-add_executable(lala src/lala.cpp)
-target_link_libraries(lala
+add_executable(subscriber src/subscriber.cpp)
+target_link_libraries(subscriber
+  ${catkin_LIBRARIES}
+  Eigen3::Eigen
+)
+
+add_executable(publisher src/publisher.cpp)
+target_link_libraries(publisher
+  ${catkin_LIBRARIES}
+  Eigen3::Eigen
+)
+
+add_executable(rpy2q src/rpy2q.cpp)
+target_link_libraries(rpy2q
   ${catkin_LIBRARIES}
   Eigen3::Eigen
 )
