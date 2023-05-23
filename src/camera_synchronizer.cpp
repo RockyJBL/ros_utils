@@ -13,7 +13,6 @@ class CAMERA_SYNC
     message_filters::Subscriber<sensor_msgs::Imu> accel_sub;
     message_filters::Subscriber<sensor_msgs::Imu> gyro_sub;
 
-    
     typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Imu, sensor_msgs::Imu> MySyncPolicy;
     typedef message_filters::Synchronizer<MySyncPolicy> sync;//(MySyncPolicy(10), subimage, subdepth);
     boost::shared_ptr<sync> sync_; 
