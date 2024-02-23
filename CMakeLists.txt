@@ -71,3 +71,9 @@ target_link_libraries(rpy2q
   ${catkin_LIBRARIES}
   Eigen3::Eigen
 )
+
+add_executable(bag2csv src/bag2csv.cpp)
+target_link_libraries(bag2csv
+  ${catkin_LIBRARIES}
+  Eigen3::Eigen
+)
