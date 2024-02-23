@@ -17,11 +17,16 @@
 std::vector<double> row_to_write;
 std::vector<std::string> column_headers;
 std::string log_path;
+bool initialized = false;
+ros::Time start_time;
 
 void sync_cb(const geometry_msgs::PoseStampedConstPtr& pose_msg,const geometry_msgs::TwistStampedConstPtr& twist_msg,const geometry_msgs::TwistStampedConstPtr& accel_msg, const geometry_msgs::TwistStampedConstPtr& wheel_speed_msg){
+    if (!initialized){
+        start_time = ros::Time::now();
+        initialized = true;
+    }
     row_to_write.clear();
-    // row_to_write.resize(column_headers.size());
-    row_to_write.push_back(pose_msg->header.stamp.toSec());
+    row_to_write.push_back((ros::Time::now()-start_time).toSec());
     row_to_write.push_back(pose_msg->pose.position.x);
     row_to_write.push_back(pose_msg->pose.position.y);
     tf::Quaternion tf_quaternion;
